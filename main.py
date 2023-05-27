@@ -28,7 +28,7 @@ def loginUser(key):
             "payload": {
                 "deviceType": "ANDROID",
                 "licenseKey": key,
-                "deviceUniqueId": "mobile:0YjQvtC60L7Qu9Cw0LQg0L3QtSDQstC40L3QvtCy0LDRgg"
+                "deviceUniqueId": "mobile:0LHQu9GP0YLRjCwg0Y3QutGB0YLQtdGA0LDQs9GA0LDQvCDQvtCx0L3QvtCy0LjQu9GB0Y8="
             }
         },
         "query": "mutation LoginUser($payload: LoginUserInput!) {\n  loginUser(payload: $payload) {\n    __typename\n    ...LoginUserResponse\n    ...TooManyRequestsResponse\n  }\n}\n\nfragment LoginUserResponse on LoginUserOutput {\n  success\n  error\n  accessToken\n  refreshToken\n  __typename\n}\n\nfragment TooManyRequestsResponse on TooManyRequestsException {\n  success\n  tooManyRequestsExceptionError: error\n  __typename\n}"
