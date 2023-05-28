@@ -4,9 +4,10 @@ import requests
 import json
 import base64
 
-API_ENDPOINT = 'https://api.mimestan.xyz/graphql'
+API_ENDPOINT = 'https://api.candypall.cyou/graphql'
+
 HEADERS = {
-    'Host': 'api.mimestan.xyz',
+    'Host': 'api.candypall.cyou',
     'accept': '*/*',
     'content-type': 'application/json',
     'user-agent': 'okhttp/4.9.2',
@@ -35,6 +36,21 @@ def loginUser(key):
     }
     response = requests.post(API_ENDPOINT, headers=HEADERS, json=data)
     return response.json()['data']['loginUser']['accessToken']
+
+def selectDomain(accessToken):
+    global API_ENDPOINT
+    global HEADERS
+    data = {
+        'operationName': 'SelectDomain',
+        'variables': {},
+        'query': 'query SelectDomain {\n  selectDomain {\n    __typename\n    ...SelectDomainResponse\n    ...TooManyRequestsResponse\n    ...UnauthorizedResponse\n  }\n}\n\nfragment SelectDomainResponse on SelectDomainOutput {\n  success\n  error\n  domain {\n    id\n    name\n    __typename\n  }\n  __typename\n}\n\nfragment TooManyRequestsResponse on TooManyRequestsException {\n  success\n  tooManyRequestsExceptionError: error\n  __typename\n}\n\nfragment UnauthorizedResponse on UnauthorizedException {\n  success\n  unauthorizedExceptionError: error\n  __typename\n}',
+    }
+    headers = {**HEADERS, 'authorization': f'Bearer {accessToken}'}
+    response = requests.post(API_ENDPOINT, headers=headers, json=data)
+    domain = response.json()['data']['selectDomain']['domain']['name']
+    API_ENDPOINT = f'https://api.{domain}/graphql'
+    HEADERS['Host'] = f'api.{domain}'
+    return domain
 
 def getZones(accessToken):
     data = {
