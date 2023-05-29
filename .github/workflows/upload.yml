@@ -26,9 +26,13 @@ jobs:
         python -m pip install --upgrade pip
         pip install requests
 
-    - name: Run example.py
+    - name: Run wireguard_example.py
       run: |
-        python example.py
+        python wireguard_example.py
+
+    - name: Run socks5_example.py
+      run: |
+        python socks5_example.py
 
     - uses: actions/upload-artifact@v3
       with:

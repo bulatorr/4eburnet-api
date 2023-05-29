@@ -12,7 +12,11 @@
 
 ## О проекте
 
-VPN-сервис 4ebur.net использует протокол Wireguard. Это позволяет нам немного зареверсить приложение и cкачать конфигурационные файлы напрямую.
+VPN-сервис 4ebur.net использует протокол Wireguard. Это позволяет нам немного зареверсить приложение и cкачать конфигурационные файлы напрямую. Ещё и socks5 прихватим.
+
+## А как скачать?
+
+Cкачать конфиги и прокси можно из Actions (актуальные, требуется аккаунт Github), или из релизов (старее)
 
 ## Предварительные требования
 
@@ -28,38 +32,17 @@ git clone https://github.com/bulatorr/4eburnet-api
 ```
 pip install requests
 ```
-#### 3. Редактирование example.py
-Создание нового аккаунта
+#### 3. Получение wireguard конфигов
 ```python
-from main import *
-
-access_token = loginUser(registerUser()) # регистрация нового аккаунта
- 
-zones = getZones(access_token) # получаем список серверов
-
-for i in filter_available_nodes(zones): # фильтруем доступные
-    selectNode(access_token, i) # сохраняем конфигурационные файлы в папку output
+python wireguard_example.py
 ```
-Использование существующего
+#### 3. Получение SOCKS5 прокси
 ```python
-from main import *
-
-access_token = loginUser('0123456789101112') # 0123456789101112 ключ аккаунта
- 
-zones = getZones(access_token) # получаем список серверов
-
-for i in filter_available_nodes(zones): # фильтруем доступные
-    selectNode(access_token, i) # сохраняем конфигурационные файлы в папку output
-
+python socks5_example.py
 ```
-#### 4. Запуск
-```python
-python example.py
-```
+
+Результат будет в папке output
 
 ## Дальнейшее развитие
 
-Для продолжения данного проекта мне необходим премиум аккаунт. Если кто-то готов поделиться, пишите на почту:
-```
-galinaivanovna301965@gmail.com
-```
+Для продолжения данного проекта мне необходим премиум аккаунт. Если кто-то готов поделиться, создайте issue
