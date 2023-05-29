@@ -1,19 +1,20 @@
-from main import *
-from utils import *
+import os
+from main import Net4eburClient
+from utils import parseSocks5
 
-device_type = "CHROMIUM"
+socks5 = Net4eburClient('socks5')
 
-access_token = loginUser(registerUser(), device_type)
+socks5.registerUser()
 
-selectDomain(access_token)
+socks5.loginUser('firefox')
 
-zones = getZones(access_token)
+socks5.selectDomain()
 
-list = []
+socks_list = []
 
-for node in filter_available_nodes(zones, "SOCKS5"):
-    list.append(parse_socks5(selectNode(access_token, node), node))
+for node in socks5.getAvailableNodes():
+    socks_list.append(parseSocks5(socks5.selectNode(node), node))
 
 os.makedirs('output', exist_ok=True)
 with open('output/socks5.txt', 'w') as f:
-    f.write('\n'.join(list))
+    f.write('\n'.join(socks_list))

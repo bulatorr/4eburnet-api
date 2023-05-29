@@ -1,13 +1,13 @@
-from main import *
-from utils import *
+from main import Net4eburClient
+from utils import parseWireguard
 
-device_type = "ANDROID"
+wireguard = Net4eburClient('wireguard')
 
-access_token = loginUser(registerUser(), device_type)
+wireguard.registerUser()
 
-selectDomain(access_token)
+wireguard.loginUser('ios')
 
-zones = getZones(access_token)
+wireguard.selectDomain()
 
-for node in filter_available_nodes(zones, "WIREGUARD"):
-    parse_wireguard(selectNode(access_token, node), node)
+for node in wireguard.getAvailableNodes():
+    parseWireguard(wireguard.selectNode(node), node)
