@@ -18,25 +18,49 @@ VPN-сервис 4ebur.net использует протокол Wireguard. Эт
 
 Cкачать конфиги и прокси можно из Actions (актуальные, требуется аккаунт Github), или из релизов (старее)
 
+## Вход в аккаунт
+Вход в свой аккаунт через ключ:
+```python
+from main import Net4eburClient
+
+client = Net4eburClient()
+
+client.key = '0123456789101112'
+
+client.loginUser('web')
+```
+Регистрация нового аккаунта:
+```python
+from main import Net4eburClient
+
+client = Net4eburClient()
+
+client.registerUser()
+
+client.loginUser('web')
+```
+
 ## Предварительные требования
 
-* Python 3.\*
+* Python 3.6+
+* Windows/Linux/Termux
 
-## Установка
+## Установка и использование
 
 #### 1. Клонирование репозитория
 ```
 git clone https://github.com/bulatorr/4eburnet-api
+cd 4eburnet-api
 ```
 #### 2. Установка requests
 ```
 pip install requests
 ```
-#### 3. Получение wireguard конфигов
+#### 3. Пример получения wireguard конфигов
 ```python
 python wireguard_example.py
 ```
-#### 3. Получение SOCKS5 прокси
+#### 3. Пример получения SOCKS5 прокси
 ```python
 python socks5_example.py
 ```
